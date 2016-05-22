@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+from urllib.request import urlopen
+import json
+
+mygkey='AIzaSyCFNbnjTA0x09VCgpWgyJ-KFnR_7524Xkk'
+
+bname='tortilleria'
+
+# Create a function
+def location_search(bname):
+    url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=29.560755,-95.286215&radius=17000&type=restaurant'
+    full_url=url + "&name=" + bname + "&key=" + mygkey
+
+    #full_url='https://maps.googleapis.com/maps/api/place/radarsearch/json?location=48.859294,2.347589&radius=5000&type=cafe&keyword=vegetarian&key=AIzaSyCFNbnjTA0x09VCgpWgyJ-KFnR_7524Xkk'
+
+    print (full_url)
+    json_obj=urlopen(full_url).read().decode('utf8')
+    data=json.loads(json_obj)
+    
+    for item in data['results']:
+        print (item['name'])
+
+# Get the names of the tortillerias
+location_search(bname)
